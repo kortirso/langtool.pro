@@ -1,5 +1,4 @@
-/* This file is for your main application css. */
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,400,500');
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,500");
 
 * {
   font-family: 'Raleway', sans-serif !important;
@@ -21,4 +20,33 @@ html, body {
 html {
   font-size: 20px;
   line-height: 1.2;
+}
+
+body {
+  main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-weight: 400;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3, h4 {
+  font-size: 1.25rem;
+}
+
+p {
+  margin: 0;
+}
+
+.container {
+  max-width: 72rem;
+  margin: 0 auto;
 }

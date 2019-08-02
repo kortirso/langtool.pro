@@ -1,2 +1,44 @@
-<h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-<p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+<div class="content container">
+  <div class="welcome">
+    <h1>LangTool!</h1>
+    <p class="lead">
+      A free web service on Phoenix<br />
+      for automatic localization of your applications<br />
+      through best translation services
+    </p>
+    <p class="lead">
+      This is really easy to translate your applications.<br />
+      Simplify and accelerate translation of mobile and web applications.
+    </p>
+  </div>
+  <div class="description">
+    <div class="block">
+      <div class="head">
+        <h3>The features of the system</h3>
+      </div>
+      <div class="inner">
+        <h4>Automatic translation of localization files</h4>
+        <p>Our automatic system will translate your file right after uploading</p>
+        <h4>No restrictions on the amount of the translation</h4>
+        <p>There are no limits for size of translated files</p>
+        <h4>Free API</h4>
+        <p>Create any integration with LangTool through API</p>
+      </div>
+    </div>
+    <div class="block">
+      <div class="head">
+        <h3>Work process</h3>
+      </div>
+      <div class="inner">
+        <h4>Create an account</h4>
+        <p>First, you need create account with keys for any translation services</p>
+        <h4>Create a task</h4>
+        <p>Select the framework you want, upload the file, choose the translation direction</p>
+        <h4>Automatic translation</h4>
+        <p>Wait for the automatic translation</p>
+        <h4>Download the result</h4>
+        <p>Download the generated localization file</p>
+      </div>
+    </div>
+  </div>
+</div>

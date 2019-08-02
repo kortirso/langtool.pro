@@ -1,0 +1,52 @@
+@import "variables";
+
+.content {
+  .welcome {
+    padding: 3rem 1rem;
+
+    h1 {
+      font-size: 4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    p {
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  .description {
+    padding: 1.25rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+
+    .block {
+      background: $white;
+      border: 1px solid $blue-light;
+      border-radius: 0.25rem;
+      padding: 0;
+      width: 48%;
+
+      .head {
+        background: $blue-light;
+
+        h2, h3 {
+          padding: 1rem;
+          margin: 0;
+        }
+      }
+
+      .inner {
+        padding: 2rem;
+
+        h4 {
+          margin: 1.25rem 0;
+
+          &:nth-of-type(1) {
+            margin-top: 0;
+          }
+        }
+      }
+    }
+  }
+}

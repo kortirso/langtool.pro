@@ -1,0 +1,9 @@
+<footer class="container">
+  <div>
+    <p>Currently v0.0.1.</p>
+  </div>
+  <div>
+    <img src="/images/junglecoders.png" />
+    <p>by Bogdanov Anton</p>
+  </div>
+</footer>
