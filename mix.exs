@@ -29,7 +29,7 @@ defmodule LangtoolPro.Mixfile do
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
@@ -44,7 +44,10 @@ defmodule LangtoolPro.Mixfile do
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:ex_machina, "~> 2.2", only: :test}
     ]
   end
 

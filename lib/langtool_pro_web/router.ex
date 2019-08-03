@@ -14,13 +14,8 @@ defmodule LangtoolProWeb.Router do
   end
 
   scope "/", LangtoolProWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LangtoolProWeb do
-  #   pipe_through :api
-  # end
 end
