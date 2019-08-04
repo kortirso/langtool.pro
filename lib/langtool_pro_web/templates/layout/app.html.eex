@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
   <body>
+    <%= render LangtoolProWeb.SharedView, "navigation.html", conn: @conn %>
     <main role="main">
       <%= render @view_module, @view_template, assigns %>
     </main>

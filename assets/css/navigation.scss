@@ -1,0 +1,23 @@
+@import "variables";
+
+nav {
+  background: $white;
+  border-bottom: 1px solid $grey-light;
+  padding: 1rem 0;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    font-size: 1.25rem;
+    color: $dark;
+  }
+
+  .auth {
+    a {
+      margin-left: 10px;
+    }
+  }
+}

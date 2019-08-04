@@ -28,6 +28,28 @@ body {
     flex-direction: column;
     flex-grow: 1;
   }
+
+  .form-group {
+    .control-label {
+
+    }
+
+    .form-control {
+
+    }
+  }
+
+  .btn {
+    &.btn-primary {
+      
+    }
+  }
+
+  a {
+    &.decoration_none {
+      text-decoration: none
+    }
+  }
 }
 
 h1, h2, h3, h4 {

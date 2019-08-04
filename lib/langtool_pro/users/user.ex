@@ -20,4 +20,9 @@ defmodule LangtoolPro.Users.User do
     |> unique_constraint(:email)
     |> update_change(:encrypted_password, &Bcrypt.hashpwsalt/1)
   end
+
+  @doc false
+  def changeset(user, _attrs) do
+    user
+  end
 end

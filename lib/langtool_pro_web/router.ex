@@ -16,6 +16,9 @@ defmodule LangtoolProWeb.Router do
   scope "/", LangtoolProWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PageController, :index, as: :welcome
+    # signup routes
+    get "/signup", RegistrationController, :new
+    resources "/registration", RegistrationController, only: [:create]
   end
 end

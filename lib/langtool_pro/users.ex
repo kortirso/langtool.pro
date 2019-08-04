@@ -50,6 +50,17 @@ defmodule LangtoolPro.Users do
   def get_user_by(user_params) when is_map(user_params), do: Repo.get_by(User, user_params)
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for tracking user changes.
+
+  ## Examples
+
+      iex> change_user(user)
+      %Ecto.Changeset{source: %User{}}
+
+  """
+  def change_user(%User{} = user), do: User.changeset(user, %{})
+
+  @doc """
   Creates a user
 
   ## Examples
