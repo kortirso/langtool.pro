@@ -1,5 +1,5 @@
-<div class="content">
-  <div id="new_user" class="container" >
+<div class="container">
+  <div id="new_user">
     <div class="header">
       <h1>Join LangTool</h1>
       <p>The best way to localize your applications.</p>

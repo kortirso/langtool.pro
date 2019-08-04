@@ -12,6 +12,7 @@
   </head>
   <body>
     <%= render LangtoolProWeb.SharedView, "navigation.html", conn: @conn %>
+    <%= render LangtoolProWeb.SharedView, "alerts.html", conn: @conn %>
     <main role="main">
       <%= render @view_module, @view_template, assigns %>
     </main>

@@ -3,9 +3,10 @@
     <a class="navbar-brand decoration_none" href="/">LangTool</a>
     <div class="navbar-right">
       <%= if signed_in?(@conn) do %>
-        <%= link "SignOut", to: "", class: "decoration_none" %>
+        <%= link "SignOut", to: session_path(@conn, :delete), method: :delete, class: "decoration_none" %>
       <% else %>
-        <a class="decoration_none" href="<%= registration_path(@conn, :new) %>">SignUp</a>
+        <%= link "SignIn", to: session_path(@conn, :new), class: "decoration_none" %>
+        <%= link "SignUp", to: registration_path(@conn, :new), class: "decoration_none" %>
       <% end %>
     </div>
   </div>

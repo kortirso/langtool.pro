@@ -20,5 +20,9 @@ defmodule LangtoolProWeb.Router do
     # signup routes
     get "/signup", RegistrationController, :new
     resources "/registration", RegistrationController, only: [:create]
+    # sessions resources
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    delete "/signout", SessionController, :delete
   end
 end

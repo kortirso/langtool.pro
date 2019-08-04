@@ -1,12 +1,15 @@
 footer {
-  display: flex;
-  justify-content: space-between;
   padding: 1.5rem;
 
-  div {
-    &:nth-of-type(2) {
-      img {
-        height: 1.5rem;
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    div {
+      &:nth-of-type(2) {
+        img {
+          height: 1.5rem;
+        }
       }
     }
   }
