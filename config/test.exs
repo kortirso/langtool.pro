@@ -17,3 +17,7 @@ config :langtool_pro, LangtoolPro.Repo,
   database: "langtool_pro_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Configure mailer
+config :langtool_pro, LangtoolPro.Mailer,
+  adapter: Bamboo.LocalAdapter
