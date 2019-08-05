@@ -25,11 +25,11 @@ defmodule LangtoolPro.Mixfile do
   def application do
     [
       mod: {LangtoolPro.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp]
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:test), do: ["lib", "test/support", "test/factories"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp deps do
@@ -44,7 +44,13 @@ defmodule LangtoolPro.Mixfile do
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
       {:plug, "~> 1.7"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
+      {:comeonin, "~> 4.0"},
+      {:bcrypt_elixir, "~> 1.0"},
+      {:ex_machina, "~> 2.2", only: :test},
+      {:bamboo, "~> 1.3.0"},
+      {:bamboo_smtp, "~> 1.7.0"},
+      {:premailex, "~> 0.3.0"},
     ]
   end
 

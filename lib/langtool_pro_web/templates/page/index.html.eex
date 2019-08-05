@@ -1,4 +1,4 @@
-<div class="content container">
+<div class="container">
   <div class="welcome">
     <h1>LangTool!</h1>
     <p class="lead">
@@ -11,7 +11,7 @@
       Simplify and accelerate translation of mobile and web applications.
     </p>
   </div>
-  <div class="description">
+  <div class="description flex">
     <div class="block">
       <div class="head">
         <h3>The features of the system</h3>

@@ -1,6 +1,11 @@
 defmodule LangtoolProWeb.Router do
   use LangtoolProWeb, :router
 
+  if Mix.env == :dev do
+    forward "/sent_emails", Bamboo.SentEmailViewerPlug
+    get "/preview_emails/:name/:type", LangtoolProWeb.PreviewEmailController, :show
+  end
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,13 +19,17 @@ defmodule LangtoolProWeb.Router do
   end
 
   scope "/", LangtoolProWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
-    get "/", PageController, :index
+    get "/", PageController, :index, as: :welcome
+    # signup routes
+    get "/signup", RegistrationController, :new
+    resources "/registration", RegistrationController, only: [:create]
+    get "/registration/complete", RegistrationController, :complete, as: :complete
+    get "/registration/confirm", RegistrationController, :confirm, as: :confirm
+    # sessions resources
+    get "/signin", SessionController, :new
+    post "/signin", SessionController, :create
+    delete "/signout", SessionController, :delete
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", LangtoolProWeb do
-  #   pipe_through :api
-  # end
 end
