@@ -10,10 +10,10 @@
     <title>Hello Langtool.Pro!</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-  <body>
+  <body class="flex column">
     <%= render LangtoolProWeb.SharedView, "navigation.html", conn: @conn %>
     <%= render LangtoolProWeb.SharedView, "alerts.html", conn: @conn %>
-    <main role="main">
+    <main class="flex full-size" role="main">
       <%= render @view_module, @view_template, assigns %>
     </main>
     <%= render LangtoolProWeb.SharedView, "footer.html" %>

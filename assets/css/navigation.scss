@@ -6,7 +6,6 @@ nav {
   padding: 1rem 0;
 
   .container {
-    display: flex;
     justify-content: space-between;
   }
 
@@ -15,7 +14,7 @@ nav {
     color: $dark;
   }
 
-  .auth {
+  .navbar-right {
     a {
       margin-left: 10px;
     }

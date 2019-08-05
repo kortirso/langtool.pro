@@ -1,7 +1,6 @@
-#new_user {
-  .disabled {
-    pointer-events: none;
-  }
+#new_user, #new_session {
+  min-width: 50%;
+  min-height: 50%;
 
   .warning {
     margin-top: 3px;
@@ -9,9 +8,7 @@
   }
 
   .header {
-    p {
-      margin-bottom: 1.5rem;
-    }
+    margin-bottom: 1.5rem;
   }
 
   form {
