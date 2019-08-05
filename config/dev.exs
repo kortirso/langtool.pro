@@ -56,3 +56,8 @@ config :langtool_pro, LangtoolPro.Repo,
   database: "langtool_pro_dev",
   hostname: "localhost",
   pool_size: 10
+
+# Configure mailer
+config :langtool_pro, LangtoolPro.Mailer,
+  adapter: Bamboo.LocalAdapter
+

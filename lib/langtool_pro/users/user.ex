@@ -6,6 +6,8 @@ defmodule LangtoolPro.Users.User do
   schema "users" do
     field :email, :string
     field :encrypted_password, :string
+    field :confirmation_token, :string
+    field :confirmed_at, :naive_datetime
 
     timestamps()
   end
@@ -13,16 +15,26 @@ defmodule LangtoolPro.Users.User do
   @doc false
   def create_changeset(user, attrs) do
     user
-    |> cast(attrs, [:email, :encrypted_password])
+    |> cast(attrs, [:email, :encrypted_password, :confirmed_at, :confirmation_token])
     |> validate_required([:email, :encrypted_password])
     |> validate_length(:encrypted_password, min: 10)
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email)
     |> update_change(:encrypted_password, &Bcrypt.hashpwsalt/1)
+    |> put_change(:confirmed_at, nil)
+    |> put_change(:confirmation_token, random_string(24))
   end
 
   @doc false
-  def changeset(user, _attrs) do
+  def changeset(user, attrs) do
     user
+    |> cast(attrs, [:confirmed_at])
+  end
+
+  defp random_string(length) do
+    length
+    |> :crypto.strong_rand_bytes()
+    |> Base.url_encode64()
+    |> binary_part(0, length)
   end
 end
