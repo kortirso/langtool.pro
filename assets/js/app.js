@@ -18,4 +18,8 @@ import "phoenix_html"
 // Local files can be imported directly using relative
 // paths "./socket" or full ones "web/static/js/socket".
 
+
+// Import VueJS components
+import "./components/user_menu"
+
 // import socket from "./socket"

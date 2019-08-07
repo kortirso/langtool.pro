@@ -1,9 +1,18 @@
 <nav>
   <div class="container flex">
-    <a class="navbar-brand decoration_none" href="/">LangTool</a>
+    <%= link "LangTool", to: welcome_path(@conn, :index), class: "navbar-brand decoration_none" %>
     <div class="navbar-right">
       <%= if signed_in?(@conn) do %>
-        <%= link "SignOut", to: session_path(@conn, :delete), method: :delete, class: "decoration_none" %>
+        <div id="user_menu">
+          <p class="toggler" @click.prevent="openMenu" v-click-outside="hideMenu">
+            Profile
+          </p>
+          <div class="menu flex column" v-show="opened">
+            <%= link "Tasks", to: welcome_path(@conn, :index), class: "decoration_none" %>
+            <%= link "Settings", to: welcome_path(@conn, :index), class: "decoration_none" %>
+            <%= link "SignOut", to: session_path(@conn, :delete), method: :delete, class: "decoration_none" %>
+          </div>
+        </div>
       <% else %>
         <%= link "SignIn", to: session_path(@conn, :new), class: "decoration_none" %>
         <%= link "SignUp", to: registration_path(@conn, :new), class: "decoration_none" %>
