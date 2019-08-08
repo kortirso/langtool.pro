@@ -1,0 +1,14 @@
+<div id="settings" class="container flex">
+  <div class="left">
+    <div class="section">
+      <%= link "Translation keys", to: translation_keys_path(@conn, :index), class: "decoration_none active" %>
+    </div>
+  </div>
+  <div class="right">
+    <div class="section">
+      <div class="head">
+        Translation keys
+      </div>
+    </div>
+  </div>
+</div>

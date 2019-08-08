@@ -9,7 +9,7 @@
           </p>
           <div class="menu flex column" v-show="opened">
             <%= link "Tasks", to: welcome_path(@conn, :index), class: "decoration_none" %>
-            <%= link "Settings", to: welcome_path(@conn, :index), class: "decoration_none" %>
+            <%= link "Settings", to: settings_path(@conn, :index), class: "decoration_none" %>
             <%= link "SignOut", to: session_path(@conn, :delete), method: :delete, class: "decoration_none" %>
           </div>
         </div>

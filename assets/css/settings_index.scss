@@ -1,0 +1,61 @@
+@import "variables";
+
+#settings {
+  width: 100%;
+  padding-top: 1rem;
+  justify-content: space-between;
+
+  .section {
+    margin-bottom: 1rem;
+    box-shadow: 0px 3px 5px 0 rgba(174,174,174,0.5);
+  }
+
+  .left {
+    width: 25%;
+
+    .section {
+      a {
+        display: block;
+        padding: 0.8rem;
+        color: $dark;
+        font-size: 0.9rem;
+        font-weight: 400;
+
+        &.active {
+          color: $white;
+          background: $blue-default;
+
+          &:hover {
+            color: $white;
+            background: $blue-default;
+          }
+        }
+
+        &:hover {
+          color: #111;
+          background: #f8f8f8;
+        }
+
+        &:nth-of-type(n+2) {
+          border-top: 1px solid $grey-light;
+        }
+      }
+    }
+  }
+
+  .right {
+    width: 70%;
+
+    .section {
+      padding: 1rem;
+
+      .head {
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid $grey-light;
+      }
+    }
+  }
+}
