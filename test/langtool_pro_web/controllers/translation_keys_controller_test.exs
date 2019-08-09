@@ -126,7 +126,17 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
       assert get_flash(conn, :danger) == "Translation key is not found"
     end
 
+    test "redirects to welcome page with Forbidden for confirmed user and existed translation key but for other user", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
+      conn = conn |> get(translation_keys_path(conn, :edit, translation_key.id))
+
+      assert redirected_to(conn) == welcome_path(conn, :index)
+      assert get_flash(conn, :danger) == "Forbidden."
+    end
+
     test "redirects to edit translation key page for confirmed user and existed translation key", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      translation_key |> TranslationKeys.update_translation_key(%{user_id: confirmed_user.id})
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> get(translation_keys_path(conn, :edit, translation_key.id))
 
@@ -160,7 +170,17 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
       assert get_flash(conn, :danger) == "Translation key is not found"
     end
 
+    test "redirects to welcome page with Forbidden for confirmed user and existed translation key but for other user", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
+      conn = conn |> patch(translation_keys_path(conn, :update, translation_key.id), translation_key: %{name: ""})
+
+      assert redirected_to(conn) == welcome_path(conn, :index)
+      assert get_flash(conn, :danger) == "Forbidden."
+    end
+
     test "does not update translation key for confirmed user, existed translation key and invalid attrs", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      translation_key |> TranslationKeys.update_translation_key(%{user_id: confirmed_user.id})
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> patch(translation_keys_path(conn, :update, translation_key.id), translation_key: %{name: ""})
 
@@ -173,6 +193,8 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
     end
 
     test "updates translation key for confirmed user, existed translation key and valid attrs", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      translation_key |> TranslationKeys.update_translation_key(%{user_id: confirmed_user.id})
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> patch(translation_keys_path(conn, :update, translation_key.id), translation_key: %{name: "new name"})
 
@@ -211,7 +233,17 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
       assert get_flash(conn, :danger) == "Translation key is not found"
     end
 
+    test "redirects to welcome page with Forbidden for confirmed user and existed translation key but for other user", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
+      conn = conn |> delete(translation_keys_path(conn, :delete, translation_key.id))
+
+      assert redirected_to(conn) == welcome_path(conn, :index)
+      assert get_flash(conn, :danger) == "Forbidden."
+    end
+
     test "deletes translation key for confirmed user and existed translation key", %{confirmed_user: confirmed_user, translation_key: translation_key} do
+      translation_key |> TranslationKeys.update_translation_key(%{user_id: confirmed_user.id})
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> delete(translation_keys_path(conn, :delete, translation_key.id))
 

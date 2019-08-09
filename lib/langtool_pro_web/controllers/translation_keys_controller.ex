@@ -5,6 +5,7 @@ defmodule LangtoolProWeb.TranslationKeysController do
   plug :check_auth when action in [:index, :new, :create, :edit, :update, :delete]
   plug :check_confirmation when action in [:index, :new, :create, :edit, :update, :delete]
   plug :find_translation_key when action in [:edit, :update, :delete]
+  plug :check_authorize when action in [:edit, :update, :delete]
 
   def index(conn, _) do
     conn
@@ -72,5 +73,9 @@ defmodule LangtoolProWeb.TranslationKeysController do
       _ ->
         assign(conn, :translation_key, translation_key)
     end
+  end
+
+  defp check_authorize(conn, _) do
+    authorize(conn, :translation_key, :"#{conn.private.phoenix_action}?", conn.assigns.translation_key)
   end
 end
