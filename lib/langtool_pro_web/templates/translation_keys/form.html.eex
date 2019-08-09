@@ -1,0 +1,19 @@
+<div id="translation_key_form">
+  <%= form_for @changeset, @action, fn f -> %>
+    <div class="form-group">
+      <%= label f, :name, "Name *", class: "control-label" %>
+      <%= text_input f, :name, class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= label f, :service, "Service *", class: "control-label" %>
+      <%= select f, :service, ["google", "yandex"], class: "form-control", required: true %>
+    </div>
+    <div class="form-group">
+      <%= label f, :value, "Value *", class: "control-label" %>
+      <%= text_input f, :value, class: "form-control", required: true %>
+    </div>
+    <div>
+      <%= submit "Save", class: "btn btn-primary btn-small" %>
+    </div>
+  <% end %>
+</div>

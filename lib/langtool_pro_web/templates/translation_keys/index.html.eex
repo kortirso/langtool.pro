@@ -9,6 +9,20 @@
       <div class="head">
         Translation keys
       </div>
+      <%= link "Add new key", to: translation_keys_path(@conn, :new), class: "btn btn-primary btn-small decoration_none", id: "new_key_button" %>
+      <div class="translation_keys">
+        <%= for translation_key <- @translation_keys do %>
+          <div class="translation_key">
+            <div class="name"><%= translation_key.name %></div>
+            <p class="service"><span>Service: </span> <%= translation_key.service %></p>
+            <p class="value"><span>Value: </span> <%= translation_key.value %></p>
+            <div class="buttons">
+              <%= link "Edit", to: translation_keys_path(@conn, :edit, translation_key), class: "btn btn-primary btn-small decoration_none" %>
+              <%= link "Delete", to: translation_keys_path(@conn, :delete, translation_key), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-small decoration_none" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

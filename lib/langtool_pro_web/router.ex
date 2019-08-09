@@ -33,6 +33,6 @@ defmodule LangtoolProWeb.Router do
     delete "/signout", SessionController, :delete
     # settings
     resources "/settings", SettingsController, only: [:index]
-    resources "/translation_keys", TranslationKeysController, only: [:index]
+    resources "/translation_keys", TranslationKeysController, except: [:show]
   end
 end

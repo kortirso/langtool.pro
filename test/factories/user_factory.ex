@@ -7,7 +7,7 @@ defmodule LangtoolPro.UserFactory do
       def user_factory do
         %User{
           email: sequence(:email, &"email-#{&1}@example.com"),
-          encrypted_password: Bcrypt.hashpwsalt("1234567890"),
+          encrypted_password: Bcrypt.hashpwsalt("1234567890")
         }
       end
 

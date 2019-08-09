@@ -2,12 +2,15 @@ defmodule LangtoolPro.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Bcrypt
+  alias LangtoolPro.{TranslationKeys.TranslationKey}
 
   schema "users" do
     field :email, :string
     field :encrypted_password, :string
     field :confirmation_token, :string
     field :confirmed_at, :naive_datetime
+
+    has_many :translation_keys, TranslationKey, on_delete: :delete_all
 
     timestamps()
   end
