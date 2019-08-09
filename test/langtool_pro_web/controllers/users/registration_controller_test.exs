@@ -8,7 +8,7 @@ defmodule LangtoolProWeb.RegistrationControllerTest do
   @user_params %{
     email: "something@gmail.com",
     encrypted_password: "1234567890",
-    password_confirmation: "1234567890",
+    password_confirmation: "1234567890"
   }
 
   @different_user_passwords %{

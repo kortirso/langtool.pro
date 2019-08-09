@@ -47,7 +47,7 @@ defmodule LangtoolPro.Users do
       nil
 
   """
-  def get_user_by(user_params) when is_map(user_params), do: Repo.get_by(User, user_params)
+  def get_user_by(attrs) when is_map(attrs), do: Repo.get_by(User, attrs)
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
@@ -72,9 +72,9 @@ defmodule LangtoolPro.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_user(user_params) when is_map(user_params) do
+  def create_user(attrs) when is_map(attrs) do
     %User{}
-    |> User.create_changeset(user_params)
+    |> User.create_changeset(attrs)
     |> Repo.insert()
   end
 
@@ -90,9 +90,9 @@ defmodule LangtoolPro.Users do
       {:error, %Ecto.Changeset{}}
 
   """
-  def update_user(%User{} = user, user_params) when is_map(user_params) do
+  def update_user(%User{} = user, attrs) when is_map(attrs) do
     user
-    |> User.changeset(user_params)
+    |> User.changeset(attrs)
     |> Repo.update()
   end
 

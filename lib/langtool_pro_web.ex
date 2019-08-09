@@ -24,6 +24,8 @@ defmodule LangtoolProWeb do
       import LangtoolProWeb.Router.Helpers
       import LangtoolProWeb.Gettext
       import LangtoolProWeb.Errors
+      use LangtoolProWeb.Auth
+      use LangtoolProWeb.Authorize
     end
   end
 

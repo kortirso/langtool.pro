@@ -31,5 +31,8 @@ defmodule LangtoolProWeb.Router do
     get "/signin", SessionController, :new
     post "/signin", SessionController, :create
     delete "/signout", SessionController, :delete
+    # settings
+    resources "/settings", SettingsController, only: [:index]
+    resources "/translation_keys", TranslationKeysController, except: [:show]
   end
 end
