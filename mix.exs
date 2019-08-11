@@ -51,6 +51,7 @@ defmodule LangtoolPro.Mixfile do
       {:bamboo, "~> 1.3.0"},
       {:bamboo_smtp, "~> 1.7.0"},
       {:premailex, "~> 0.3.0"},
+      {:joken, "~> 2.0"}
     ]
   end
 
