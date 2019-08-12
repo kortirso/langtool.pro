@@ -37,6 +37,8 @@ defmodule LangtoolProWeb do
       import LangtoolProWeb.Gettext
       import LangtoolProWeb.Errors
       import LangtoolProWeb.Helpers.ErrorsApi
+      use LangtoolProWeb.AuthApi
+      use LangtoolProWeb.AuthorizeApi
     end
   end
 

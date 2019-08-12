@@ -42,5 +42,6 @@ defmodule LangtoolProWeb.Router do
 
     resources "/users", UsersController, only: [:create]
     resources "/user_tokens", UserTokensController, only: [:create]
+    resources "/translation_keys", TranslationKeysController, only: [:index, :create, :update, :delete]
   end
 end

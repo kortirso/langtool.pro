@@ -66,8 +66,6 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
   end
 
   describe "POST#create" do
-    setup [:create_translation_key]
-
     test "redirects to welcome page for guest", %{conn: conn} do
       conn = post conn, translation_keys_path(conn, :create), translation_key: %{}
 
@@ -84,19 +82,25 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
     end
 
     test "does not create translation key for confirmed user and invalid attrs", %{confirmed_user: confirmed_user} do
+      translation_keys_amount_before = length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id))
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> post(translation_keys_path(conn, :create), translation_key: @invalid_translation_key_params)
 
       assert html_response(conn, 200) =~ "New translation key"
       assert get_flash(conn, :danger) != nil
+      assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before
     end
 
     test "create translation key for confirmed user and valid attrs", %{confirmed_user: confirmed_user} do
+      translation_keys_amount_before = length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id))
+
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
-      conn = conn |> post(translation_keys_path(conn, :create), translation_key: @translation_key_params |> Map.merge(%{"user_id" => confirmed_user.id}))
+      conn = conn |> post(translation_keys_path(conn, :create), translation_key: @translation_key_params)
 
       assert redirected_to(conn) == translation_keys_path(conn, :index)
       assert get_flash(conn, :success) == "Translation key created successfully."
+      assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before + 1
     end
   end
 
@@ -243,12 +247,14 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
 
     test "deletes translation key for confirmed user and existed translation key", %{confirmed_user: confirmed_user, translation_key: translation_key} do
       translation_key |> TranslationKeys.update_translation_key(%{user_id: confirmed_user.id})
+      translation_keys_amount_before = length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id))
 
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
       conn = conn |> delete(translation_keys_path(conn, :delete, translation_key.id))
 
       assert redirected_to(conn) == translation_keys_path(conn, :index)
       assert get_flash(conn, :success) == "Translation key deleted successfully."
+      assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before - 1
     end
   end
 
