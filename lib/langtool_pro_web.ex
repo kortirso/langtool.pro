@@ -29,6 +29,19 @@ defmodule LangtoolProWeb do
     end
   end
 
+  def controller_api do
+    quote do
+      use Phoenix.Controller, namespace: LangtoolProWeb
+      import Plug.Conn
+      import LangtoolProWeb.Router.Helpers
+      import LangtoolProWeb.Gettext
+      import LangtoolProWeb.Errors
+      import LangtoolProWeb.Helpers.ErrorsApi
+      use LangtoolProWeb.AuthApi
+      use LangtoolProWeb.AuthorizeApi
+    end
+  end
+
   def view do
     quote do
       use Phoenix.View, root: "lib/langtool_pro_web/templates",

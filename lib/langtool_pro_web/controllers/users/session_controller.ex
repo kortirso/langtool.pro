@@ -1,6 +1,7 @@
 defmodule LangtoolProWeb.SessionController do
   use LangtoolProWeb, :controller
   alias LangtoolPro.Users
+  alias Comeonin.Bcrypt
 
   def new(conn, _) do
     render conn, "new.html"
@@ -8,7 +9,7 @@ defmodule LangtoolProWeb.SessionController do
 
   def create(conn, %{"session" => session}) do
     user = Users.get_user_by(%{email: session["email"]})
-    case Comeonin.Bcrypt.check_pass(user, session["password"]) do
+    case Bcrypt.check_pass(user, session["password"]) do
       # successful signin
       {:ok, user} ->
         conn

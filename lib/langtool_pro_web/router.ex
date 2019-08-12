@@ -35,4 +35,13 @@ defmodule LangtoolProWeb.Router do
     resources "/settings", SettingsController, only: [:index]
     resources "/translation_keys", TranslationKeysController, except: [:show]
   end
+
+  # api resources
+  scope "/api/v1", LangtoolProWeb.Api.V1, as: :api do
+    pipe_through :api
+
+    resources "/users", UsersController, only: [:create]
+    resources "/user_tokens", UserTokensController, only: [:create]
+    resources "/translation_keys", TranslationKeysController, only: [:index, :create, :update, :delete]
+  end
 end
