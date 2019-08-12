@@ -41,5 +41,6 @@ defmodule LangtoolProWeb.Router do
     pipe_through :api
 
     resources "/users", UsersController, only: [:create]
+    resources "/user_tokens", UserTokensController, only: [:create]
   end
 end

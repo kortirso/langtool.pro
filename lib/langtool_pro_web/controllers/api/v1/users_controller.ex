@@ -1,5 +1,5 @@
 defmodule LangtoolProWeb.Api.V1.UsersController do
-  use LangtoolProWeb, :controller
+  use LangtoolProWeb, :controller_api
   alias LangtoolPro.{Users, Mailer}
   alias LangtoolProWeb.{UserMailer}
 
@@ -18,12 +18,5 @@ defmodule LangtoolProWeb.Api.V1.UsersController do
             render_error(conn, 409, render_errors(changeset))
         end
     end
-  end
-
-  defp render_error(conn, status, message) do
-    conn
-    |> put_status(status)
-    |> put_view(LangtoolProWeb.ErrorView)
-    |> render("error.json", message: message)
   end
 end
