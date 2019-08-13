@@ -1,0 +1,46 @@
+<div id="tasks" class="container flex">
+  <div class="left">
+    <p>Some descripiton</p>
+  </div>
+  <div class="right">
+    <div class="section">
+      <div class="head">
+        New task
+      </div>
+      <form id="new_task">
+        <input type="hidden" id="_csrf_token" value="<%= get_csrf_token() %>">
+        <div class="form-group" :class="{ current: framework === '' }">
+          <label for="select_framework">Select framework</label>
+          <select class="form-control" id="select_framework" v-model="framework">
+            <option disabled="" selected="" value="">Select your option</option>
+            <option value="ruby_on_rails">Ruby on Rails</option>
+          </select>
+        </div>
+        <div class="form-group" :class="{ disabled: framework === '', current: framework !== '' && fileName === null || fileError }">
+          <label for="localization_file" class="file_uploader" :class="{ error: fileError }">{{ error || fileName || "Upload the file for localization" }}</label>
+          <input type="file" class="form-control-file" id="localization_file" :accept="extension" @change="uploadFile($event)" />
+        </div>
+        <div class="row">
+          <div class="form-group disabled">
+            <label for="original_language">Original language</label>
+            <input type="text" id="original_language" :value="originalLanguage" />
+          </div>
+          <div class="form-group" :class="{ disabled: file === null || fileError, current: fileName !== null && to === '' && !fileError }">
+            <label for="translation_language">Language of translation</label>
+            <select class="form-control" id="translation_language" v-model="to">
+              <option disabled="" selected="" value="">Select your option</option>
+              <option value="en" :disabled="from === 'en'">English</option>
+              <option value="da" :disabled="from === 'da'">Danish</option>
+              <option value="ru" :disabled="from === 'ru'">Russian</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <button class="btn btn-primary btn-small" type="button" :class="{ disabled: from === '' || to === '' }" @click.prevent="createTask()">
+            Create task
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

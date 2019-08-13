@@ -34,6 +34,8 @@ defmodule LangtoolProWeb.Router do
     # settings
     resources "/settings", SettingsController, only: [:index]
     resources "/translation_keys", TranslationKeysController, except: [:show]
+    # tasks
+    resources "/tasks", TasksController, except: [:show, :edit, :update]
   end
 
   # api resources

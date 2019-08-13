@@ -38,6 +38,17 @@ defmodule LangtoolPro.Tasks do
   def get_task(id) when is_integer(id), do: Repo.get(Task, id)
 
   @doc """
+  Returns an `%Ecto.Changeset{}` for tracking task changes.
+
+  ## Examples
+
+      iex> change_translation_key(task)
+      %Ecto.Changeset{source: %Task{}}
+
+  """
+  def change_task(%Task{} = task), do: Task.changeset(task, %{})
+
+  @doc """
   Creates a task
 
   ## Examples
@@ -67,6 +78,24 @@ defmodule LangtoolPro.Tasks do
   def update_task_status(%Task{} = task, status) when is_binary(status) do
     task
     |> Task.status_changeset(%{status: status})
+    |> Repo.update()
+  end
+
+  @doc """
+  Updates a task
+
+  ## Examples
+
+      iex> update_task(task, %{field: new_value})
+      {:ok, %Task{}}
+
+      iex> update_task(task, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_task(%Task{} = task, attrs) when is_map(attrs) do
+    task
+    |> Task.changeset(attrs)
     |> Repo.update()
   end
 

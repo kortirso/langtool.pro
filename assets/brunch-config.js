@@ -66,6 +66,8 @@ exports.config = {
     enabled: true,
     whitelist: ["phoenix", "phoenix_html", "vue"],
     globals: {
+      $: 'jquery',
+      jQuery: 'jquery',
       Vue: "vue/dist/vue.common.js"
     }
   }

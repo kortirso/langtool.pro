@@ -1,0 +1,18 @@
+<div id="tasks" class="container">
+  <div class="section">
+    <div class="head">
+      Tasks
+    </div>
+    <%= link "Start new task", to: tasks_path(@conn, :new), class: "btn btn-primary btn-small decoration_none", id: "new_key_button" %>
+    <div class="tasks">
+      <%= for task <- @tasks do %>
+        <div class="task">
+          <div class="name"><%= task.id %></div>
+          <div class="buttons">
+            <%= link "Delete", to: tasks_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-small decoration_none" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

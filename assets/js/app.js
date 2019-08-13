@@ -21,5 +21,6 @@ import "phoenix_html"
 
 // Import VueJS components
 import "./components/user_menu"
+import "./components/new_task"
 
 // import socket from "./socket"

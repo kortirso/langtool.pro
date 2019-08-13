@@ -44,6 +44,12 @@ defmodule LangtoolPro.TasksTest do
     end
   end
 
+  describe ".change_task" do
+    test "returns changeset", %{task1: task1} do
+      assert %Ecto.Changeset{data: %Task{}} = Tasks.change_task(task1)
+    end
+  end
+
   describe ".create_task" do
     setup [:create_user]
 
@@ -63,6 +69,15 @@ defmodule LangtoolPro.TasksTest do
 
     test "does not update task status for invalid params", %{task1: task1} do
       assert {:error, %Ecto.Changeset{}} = Tasks.update_task_status(task1, "processing")
+    end
+  end
+
+  describe ".update_task" do
+    setup [:create_user]
+
+    test "updates task for valid params", %{task1: task1, user: user} do
+      assert {:ok, %Task{} = task} = Tasks.update_task(task1, %{user_id: user.id})
+      assert task.user_id == user.id
     end
   end
 
