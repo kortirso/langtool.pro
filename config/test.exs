@@ -21,3 +21,7 @@ config :langtool_pro, LangtoolPro.Repo,
 # Configure mailer
 config :langtool_pro, LangtoolPro.Mailer,
   adapter: Bamboo.LocalAdapter
+
+config :arc, storage: Arc.Storage.Local
+
+config :joken, default_signer: "secret"

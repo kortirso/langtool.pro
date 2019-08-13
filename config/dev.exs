@@ -61,3 +61,5 @@ config :langtool_pro, LangtoolPro.Repo,
 config :langtool_pro, LangtoolPro.Mailer,
   adapter: Bamboo.LocalAdapter
 
+config :arc, storage: Arc.Storage.Local
+

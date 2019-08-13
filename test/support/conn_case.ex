@@ -47,6 +47,11 @@ defmodule LangtoolProWeb.ConnCase do
     unless tags[:async] do
       Ecto.Adapters.SQL.Sandbox.mode(LangtoolPro.Repo, {:shared, self()})
     end
+
+    on_exit fn ->
+      LangtoolProWeb.FileCase.remove_test_files
+    end
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 
