@@ -57,12 +57,22 @@ defmodule LangtoolPro.TasksTest do
   describe ".create_task" do
     setup [:create_user]
 
-    test "creates task for valid params", %{user: user} do
-      assert {:ok, %Task{}} = @task_params |> Map.merge(%{user_id: user.id}) |> Tasks.create_task()
+    test "creates task for valid params", %{user: user, translation_key1: translation_key} do
+      assert {:ok, %Task{}} = @task_params |> Map.merge(%{user_id: user.id, translation_key_id: translation_key.id}) |> Tasks.create_task()
     end
 
-    test "does not create task for invalid params" do
-      assert {:error, %Ecto.Changeset{}} = Tasks.create_task(@invalid_task_params)
+    test "does not create for valid params but for restricted translation key", %{user: user, translation_key2: translation_key} do
+      assert {:error, %Ecto.Changeset{} = changeset} = @task_params |> Map.merge(%{user_id: user.id, translation_key_id: translation_key.id}) |> Tasks.create_task()
+      assert changeset.errors == [translation_key: {"does not belong to user", []}]
+    end
+
+    test "does not create for valid params but for unexisted translation key", %{user: user} do
+      assert {:error, %Ecto.Changeset{} = changeset} = @task_params |> Map.merge(%{user_id: user.id, translation_key_id: 999999}) |> Tasks.create_task()
+      assert changeset.errors == [translation_key: {"is not found", []}]
+    end
+
+    test "does not create task for invalid params", %{user: user, translation_key1: translation_key} do
+      assert {:error, %Ecto.Changeset{}} = @invalid_task_params |> Map.merge(%{user_id: user.id, translation_key_id: translation_key.id}) |> Tasks.create_task()
     end
   end
 
@@ -109,13 +119,16 @@ defmodule LangtoolPro.TasksTest do
   end
 
   defp create_tasks(_) do
-    task1 = insert(:task)
-    task2 = insert(:task)
+    translation_key = insert(:translation_key)
+    task1 = insert(:task, translation_key: translation_key)
+    task2 = insert(:task, translation_key: translation_key)
     {:ok, task1: task1, task2: task2}
   end
 
   defp create_user(_) do
     user = insert(:user)
-    {:ok, user: user}
+    translation_key1 = insert(:translation_key, user: user)
+    translation_key2 = insert(:translation_key)
+    {:ok, user: user, translation_key1: translation_key1, translation_key2: translation_key2}
   end
 end

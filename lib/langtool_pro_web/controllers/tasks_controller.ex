@@ -1,6 +1,6 @@
 defmodule LangtoolProWeb.TasksController do
   use LangtoolProWeb, :controller
-  alias LangtoolPro.{Tasks, Tasks.Task}
+  alias LangtoolPro.{Tasks, Tasks.Task, TranslationKeys}
 
   plug :check_auth when action in [:index, :new, :create, :delete]
   plug :check_confirmation when action in [:index, :new, :create, :delete]

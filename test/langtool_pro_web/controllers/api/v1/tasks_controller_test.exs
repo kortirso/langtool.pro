@@ -13,7 +13,7 @@ defmodule LangtoolProWeb.Api.V1.TasksControllerTest do
       path = File.cwd! |> Path.join("test/fixtures/invalid.yml")
       conn = post conn, api_detection_path(conn, :detection), [file: %Plug.Upload{path: path, filename: "invalid.yml"}]
 
-      assert json_response(conn, 200) == %{"error" => "Invalid amount of keys"}
+      assert json_response(conn, 200) == "Invalid amount of keys"
     end
   end
 end

@@ -12,6 +12,7 @@ if ($('#new_task').length) {
       framework: '',
       file: null,
       fileName: null,
+      translationKey: null,
       from: '',
       to: '',
       error: null
@@ -50,6 +51,7 @@ if ($('#new_task').length) {
         // data.append('_csrf_token', $('#_csrf_token').val())
         const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/api/v1/tasks/detection', data, config).then(function(data) {
+          console.log(data)
           if (data.body.code !== undefined) {
             const locale = locales[data.body.code]
             if (locale !== undefined) {
@@ -65,6 +67,7 @@ if ($('#new_task').length) {
       },
       createTask: function() {
         let data = new FormData()
+        data.append('task[translation_key_id]', this.translationKey)
         data.append('task[file]', this.file)
         data.append('task[from]', this.from)
         data.append('task[to]', this.to)

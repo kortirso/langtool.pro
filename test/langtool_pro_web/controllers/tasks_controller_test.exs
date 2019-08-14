@@ -96,11 +96,11 @@ defmodule LangtoolProWeb.TasksControllerTest do
       assert length(Tasks.get_tasks_for_user(confirmed_user.id)) == tasks_amount_before
     end
 
-    test "create translation key for confirmed user and valid attrs", %{confirmed_user: confirmed_user} do
+    test "create translation key for confirmed user and valid attrs", %{confirmed_user: confirmed_user, translation_key: translation_key} do
       tasks_amount_before = length(Tasks.get_tasks_for_user(confirmed_user.id))
 
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
-      conn = conn |> post(tasks_path(conn, :create), task: @task_params)
+      conn = conn |> post(tasks_path(conn, :create), task: @task_params |> Map.merge(%{translation_key_id: translation_key.id}))
 
       assert redirected_to(conn) == tasks_path(conn, :index)
       assert get_flash(conn, :success) == "Task created successfully."
@@ -158,11 +158,13 @@ defmodule LangtoolProWeb.TasksControllerTest do
   defp create_user(_) do
     user = insert(:user)
     confirmed_user = insert(:user) |> confirm()
-    {:ok, user: user, confirmed_user: confirmed_user}
+    translation_key = insert(:translation_key, user: confirmed_user)
+    {:ok, user: user, confirmed_user: confirmed_user, translation_key: translation_key}
   end
 
   defp create_task(_) do
-    task = insert(:task)
+    translation_key = insert(:translation_key)
+    task = insert(:task, translation_key: translation_key)
     {:ok, task: task}
   end
 end

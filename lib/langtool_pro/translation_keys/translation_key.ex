@@ -1,7 +1,7 @@
 defmodule LangtoolPro.TranslationKeys.TranslationKey do
   use Ecto.Schema
   import Ecto.Changeset
-  alias LangtoolPro.{TranslationKeys.TranslationKey, Users.User}
+  alias LangtoolPro.{TranslationKeys.TranslationKey, Users.User, Tasks.Task}
 
   schema "translation_keys" do
     field :name, :string
@@ -9,6 +9,8 @@ defmodule LangtoolPro.TranslationKeys.TranslationKey do
     field :value, :string
 
     belongs_to :user, User
+
+    has_many :tasks, Task
 
     timestamps()
   end
