@@ -7,7 +7,8 @@
     <div class="tasks">
       <%= for task <- @tasks do %>
         <div class="task">
-          <div class="name"><%= task.id %></div>
+          <div class="name"><%= task.id %> - <span class="direction"><%= task.from %>-<%= task.to %></span></div>
+          <div class="file"><%= task.file.file_name %> (<span class="status"><%= task.status %></span>)</div>
           <div class="buttons">
             <%= link "Delete", to: tasks_path(@conn, :delete, task), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-small decoration_none" %>
           </div>

@@ -52,7 +52,8 @@ defmodule LangtoolPro.Mixfile do
       {:bamboo_smtp, "~> 1.7.0"},
       {:premailex, "~> 0.3.0"},
       {:joken, "~> 2.0"},
-      {:arc_ecto, "~> 0.11.2"}
+      {:arc_ecto, "~> 0.11.2"},
+      {:i18n_parser, "~> 0.1.8"}
     ]
   end
 

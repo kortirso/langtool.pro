@@ -21,6 +21,10 @@ defmodule LangtoolPro.TasksTest do
     file: %Plug.Upload{path: "test/fixtures/ru.yml", filename: "ru.yml"}
   }
 
+  @task_invalid_file_params %{
+    file: %Plug.Upload{path: "test/fixtures/invalid.yml", filename: "invalid.yml"}
+  }
+
   describe ".get_tasks_for_user" do
     test "returns tasks for existed id", %{task1: task1} do
       result = Tasks.get_tasks_for_user(task1.user_id)
@@ -91,6 +95,16 @@ defmodule LangtoolPro.TasksTest do
   describe ".delete_task" do
     test "deletes task for existed task", %{task1: task1} do
       assert {:ok, %Task{}} = Tasks.delete_task(task1)
+    end
+  end
+
+  describe ".detect_locale" do
+    test "detects locale for valid file" do
+      assert {:ok, %{code: "ru"}} = Tasks.detect_locale("ru.yml", @task_file_params.file.path)
+    end
+
+    test "does not detect locale for invalid file" do
+      assert {:error, _} = Tasks.detect_locale("ru.yml", @task_invalid_file_params.file.path)
     end
   end
 

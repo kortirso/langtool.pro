@@ -123,4 +123,24 @@ defmodule LangtoolPro.Tasks do
 
   """
   def delete_task(%Task{} = task), do: Repo.delete(task)
+
+  @doc """
+  Detects locale for file
+
+  ## Examples
+
+      iex> detect_locale(filename, path)
+      {:ok, %{code: "en"}}
+
+      iex> detect_locale(filename, path)
+      {:error, ""}
+
+  """
+  def detect_locale(filename, path) when is_binary(filename) and is_binary(path) do
+    extension =
+      filename
+      |> String.split(".")
+      |> Enum.at(-1)
+    I18nParser.detect(path, extension)
+  end
 end

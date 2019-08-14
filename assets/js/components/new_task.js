@@ -45,19 +45,19 @@ if ($('#new_task').length) {
         this.file = event.target.files[0]
         this.fileName = "Selected: " + event.target.files[0].name
         // send file for locale autodetection
-        // let data = new FormData()
-        // data.append('file', this.file)
+        let data = new FormData()
+        data.append('file', this.file)
         // data.append('_csrf_token', $('#_csrf_token').val())
-        // const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
-        // this.$http.post('http://localhost:4000/tasks/detection', data, config).then(function(data) {
-        //   if (data.body.code !== undefined) {
-        //     const locale = locales[data.body.code]
-        //     if (locale !== undefined) {
-        //       this.from = data.body.code
-        //       this.error = null
-        //     } else this.setError('Locale is not supported')
-        //   } else this.setError(data.body.error)
-        // })
+        const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
+        this.$http.post('http://localhost:4000/api/v1/tasks/detection', data, config).then(function(data) {
+          if (data.body.code !== undefined) {
+            const locale = locales[data.body.code]
+            if (locale !== undefined) {
+              this.from = data.body.code
+              this.error = null
+            } else this.setError('Locale is not supported')
+          } else this.setError(data.body.error)
+        })
       },
       setError: function(error) {
         this.from = ''
@@ -72,7 +72,7 @@ if ($('#new_task').length) {
         data.append('_csrf_token', $('#_csrf_token').val())
         const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/tasks', data, config).then(function(data) {
-          this.framework = ''
+          window.location.href = 'http://localhost:4000/tasks'
         })
       }
     }

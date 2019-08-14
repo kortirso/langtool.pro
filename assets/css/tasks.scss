@@ -42,16 +42,19 @@
         }
 
         .name {
-          margin-bottom: 0.5rem;
           color: $blue-dark;
           font-size: 1.2rem;
           font-weight: 500;
-        }
-
-        p {
-          font-size: 0.9rem;
 
           span {
+            font-size: 1rem;
+            color: $grey-medium;
+          }
+        }
+
+        .file {
+          span {
+            font-size: 1rem;
             color: $grey-medium;
           }
         }
