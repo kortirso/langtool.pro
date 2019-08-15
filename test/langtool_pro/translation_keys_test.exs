@@ -7,14 +7,14 @@ defmodule LangtoolPro.TranslationKeysTest do
 
   @translation_key_params %{
     name: "Key",
-    service: "yandex",
-    value: "some_value"
+    value: "some_value",
+    service_id: nil
   }
 
   @invalid_translation_key_params %{
     name: "Key",
-    service: "",
-    value: ""
+    value: "",
+    service_id: nil
   }
 
   describe ".get_translation_keys_for_user" do
@@ -58,9 +58,10 @@ defmodule LangtoolPro.TranslationKeysTest do
 
   describe ".create_translation_key" do
     setup [:create_user]
+    setup [:create_service]
 
-    test "creates translation_key for valid params", %{user: user} do
-      assert {:ok, %TranslationKey{}} = @translation_key_params |> Map.merge(%{user_id: user.id}) |> TranslationKeys.create_translation_key()
+    test "creates translation_key for valid params", %{user: user, service: service} do
+      assert {:ok, %TranslationKey{}} = @translation_key_params |> Map.merge(%{user_id: user.id, service_id: service.id}) |> TranslationKeys.create_translation_key()
     end
 
     test "does not create translation_key for invalid params" do
@@ -90,5 +91,10 @@ defmodule LangtoolPro.TranslationKeysTest do
   defp create_user(_) do
     user = insert(:user)
     {:ok, user: user}
+  end
+
+  defp create_service(_) do
+    service = insert(:service)
+    {:ok, service: service}
   end
 end

@@ -19,7 +19,8 @@ defmodule LangtoolPro.TranslationKeys do
     query =
       from translation_key in TranslationKey,
       where: translation_key.user_id == ^user_id,
-      order_by: [asc: translation_key.id]
+      order_by: [asc: translation_key.id],
+      preload: [:service]
 
     Repo.all(query)
   end

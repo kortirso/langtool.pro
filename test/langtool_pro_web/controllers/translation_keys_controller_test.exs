@@ -7,14 +7,14 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
 
   @translation_key_params %{
     name: "something",
-    service: "yandex",
-    value: "1234567890"
+    value: "1234567890",
+    service_id: nil
   }
 
   @invalid_translation_key_params %{
     name: "something",
-    service: "",
-    value: ""
+    value: "",
+    service_id: nil
   }
 
   describe "GET#index" do
@@ -42,6 +42,8 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
   end
 
   describe "GET#new" do
+    setup [:create_service]
+
     test "redirects to welcome page for guest", %{conn: conn} do
       conn = get conn, translation_keys_path(conn, :new)
 
@@ -66,6 +68,8 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
   end
 
   describe "POST#create" do
+    setup [:create_service]
+
     test "redirects to welcome page for guest", %{conn: conn} do
       conn = post conn, translation_keys_path(conn, :create), translation_key: %{}
 
@@ -92,11 +96,11 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
       assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before
     end
 
-    test "create translation key for confirmed user and valid attrs", %{confirmed_user: confirmed_user} do
+    test "create translation key for confirmed user and valid attrs", %{confirmed_user: confirmed_user, service: service} do
       translation_keys_amount_before = length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id))
 
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
-      conn = conn |> post(translation_keys_path(conn, :create), translation_key: @translation_key_params)
+      conn = conn |> post(translation_keys_path(conn, :create), translation_key: @translation_key_params |> Map.merge(%{service_id: service.id}))
 
       assert redirected_to(conn) == translation_keys_path(conn, :index)
       assert get_flash(conn, :success) == "Translation key created successfully."
@@ -106,6 +110,7 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
 
   describe "GET#edit" do
     setup [:create_translation_key]
+    setup [:create_service]
 
     test "redirects to welcome page for guest", %{conn: conn} do
       conn = get conn, translation_keys_path(conn, :edit, "999999")
@@ -150,6 +155,7 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
 
   describe "PATCH#update" do
     setup [:create_translation_key]
+    setup [:create_service]
 
     test "redirects to welcome page for guest", %{conn: conn} do
       conn = patch conn, translation_keys_path(conn, :update, "999999"), translation_key: %{}
@@ -267,5 +273,10 @@ defmodule LangtoolProWeb.TranslationKeysControllerTest do
   defp create_translation_key(_) do
     translation_key = insert(:translation_key)
     {:ok, translation_key: translation_key}
+  end
+
+  defp create_service(_) do
+    service = insert(:service)
+    {:ok, service: service}
   end
 end

@@ -1,6 +1,6 @@
 defmodule LangtoolProWeb.TranslationKeysController do
   use LangtoolProWeb, :controller
-  alias LangtoolPro.{TranslationKeys, TranslationKeys.TranslationKey}
+  alias LangtoolPro.{TranslationKeys, TranslationKeys.TranslationKey, Services}
 
   plug :check_auth when action in [:index, :new, :create, :edit, :update, :delete]
   plug :check_confirmation when action in [:index, :new, :create, :edit, :update, :delete]
@@ -20,8 +20,10 @@ defmodule LangtoolProWeb.TranslationKeysController do
   end
 
   def create(conn, %{"translation_key" => translation_key_params}) do
-    translation_key = translation_key_params |> Map.merge(%{"user_id" => conn.assigns.current_user.id}) |> TranslationKeys.create_translation_key()
-    case translation_key do
+    translation_key_params
+    |> Map.merge(%{"user_id" => conn.assigns.current_user.id})
+    |> TranslationKeys.create_translation_key()
+    |> case do
       {:ok, _} ->
         conn
         |> put_flash(:success, "Translation key created successfully.")

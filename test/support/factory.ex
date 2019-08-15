@@ -3,4 +3,5 @@ defmodule LangtoolPro.Factory do
   use LangtoolPro.UserFactory
   use LangtoolPro.TranslationKeyFactory
   use LangtoolPro.TaskFactory
+  use LangtoolPro.ServiceFactory
 end

@@ -29,7 +29,7 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysView do
     %{
       id: translation_key.id,
       name: translation_key.name,
-      service: translation_key.service,
+      service_id: translation_key.service_id,
       value: translation_key.value
     }
   end

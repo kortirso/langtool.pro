@@ -7,14 +7,14 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysControllerTest do
 
   @translation_key_params %{
     name: "something",
-    service: "yandex",
-    value: "1234567890"
+    value: "1234567890",
+    service_id: nil
   }
 
   @invalid_translation_key_params %{
     name: "something",
-    service: "",
-    value: ""
+    value: "",
+    service_id: nil
   }
 
   describe "GET#index" do
@@ -53,6 +53,8 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysControllerTest do
   end
 
   describe "POST#create" do
+    setup [:create_service]
+
     test "renders auth error for guest without token", %{conn: conn} do
       conn = post conn, api_translation_keys_path(conn, :create), translation_key: %{}
 
@@ -90,21 +92,22 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysControllerTest do
       assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before
     end
 
-    test "creates translation keys for valid params", %{conn: conn, confirmed_user: confirmed_user} do
+    test "creates translation keys for valid params", %{conn: conn, confirmed_user: confirmed_user, service: service} do
       translation_keys_amount_before = length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id))
 
       conn =
         conn
         |> put_req_header("authorization", Token.encode(confirmed_user.id))
-        |> post(api_translation_keys_path(conn, :create), translation_key: @translation_key_params)
+        |> post(api_translation_keys_path(conn, :create), translation_key: @translation_key_params |> Map.merge(%{service_id: service.id}))
 
       assert %{"translation_key" => result} = json_response(conn, 201)
       assert %{
                 "id" => id,
                 "name" => "something",
-                "service" => "yandex",
+                "service_id" => service_id,
                 "value" => "1234567890"
               } = result
+      assert service_id == service.id
       assert length(TranslationKeys.get_translation_keys_for_user(confirmed_user.id)) == translation_keys_amount_before + 1
     end
   end
@@ -181,12 +184,9 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysControllerTest do
         |> patch(api_translation_keys_path(conn, :update, translation_key.id), translation_key: %{name: "new name"})
 
       assert %{"translation_key" => result} = json_response(conn, 200)
-      assert result == %{
-                          "id" => translation_key.id,
-                          "name" => "new name",
-                          "service" => translation_key.service,
-                          "value" => translation_key.value
-                        }
+      assert %{
+                "name" => "new name"
+              } = result
 
       object = TranslationKeys.get_translation_key(translation_key.id)
 
@@ -264,5 +264,10 @@ defmodule LangtoolProWeb.Api.V1.TranslationKeysControllerTest do
   defp create_translation_key(_) do
     translation_key = insert(:translation_key)
     {:ok, translation_key: translation_key}
+  end
+
+  defp create_service(_) do
+    service = insert(:service)
+    {:ok, service: service}
   end
 end

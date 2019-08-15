@@ -6,9 +6,9 @@ defmodule LangtoolPro.TranslationKeyFactory do
       def translation_key_factory do
         %TranslationKey{
           name: sequence(:name, &"Key_#{&1}"),
-          service: "yandex",
           value: "some_value",
-          user: build(:user)
+          user: build(:user),
+          service: build(:service)
         }
       end
     end

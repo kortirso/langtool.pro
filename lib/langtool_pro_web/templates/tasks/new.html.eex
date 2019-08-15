@@ -24,7 +24,7 @@
           <label for="select_translation_key">Select translation key</label>
           <select class="form-control" id="select_translation_key" v-model="translationKey">
             <option disabled="" selected="" value="">Select your option</option>
-            <%= for translation_key <- LangtoolPro.TranslationKeys.get_translation_keys_for_user(@current_user.id) do %>
+            <%= for translation_key <- translation_keys_of_user(@current_user.id) do %>
               <option value="<%= translation_key.id %>"><%= translation_key.name %></option>
             <% end %>
           </select>

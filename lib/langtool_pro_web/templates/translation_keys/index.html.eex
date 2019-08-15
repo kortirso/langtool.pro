@@ -14,7 +14,7 @@
         <%= for translation_key <- @translation_keys do %>
           <div class="translation_key">
             <div class="name"><%= translation_key.name %></div>
-            <p class="service"><span>Service: </span> <%= translation_key.service %></p>
+            <p class="service"><span>Service: </span> <%= translation_key.service.name %></p>
             <p class="value"><span>Value: </span> <%= translation_key.value %></p>
             <div class="buttons">
               <%= link "Edit", to: translation_keys_path(@conn, :edit, translation_key), class: "btn btn-primary btn-small decoration_none" %>
