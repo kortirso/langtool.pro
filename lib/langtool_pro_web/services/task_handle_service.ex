@@ -4,6 +4,7 @@ defmodule LangtoolProWeb.Services.TaskHandleService do
   """
 
   alias LangtoolPro.{Tasks, Tasks.Task}
+  alias LangtoolProWeb.Services.TaskTranslateService
 
   @doc """
   Localize file
@@ -37,7 +38,7 @@ defmodule LangtoolProWeb.Services.TaskHandleService do
 
   defp translate_task(task, sentences, temp_data) do
     sentences
-    |> Enum.map(fn {index, original} -> {index, original, "#{original}!!!"} end)
+    |> TaskTranslateService.call(task)
     |> generate_result_file(task, temp_data)
     |> case do
       {:ok, task} -> task_update_status(task, "completed")

@@ -1,6 +1,6 @@
 defmodule LangtoolProWeb.TranslationKeysController do
   use LangtoolProWeb, :controller
-  alias LangtoolPro.{TranslationKeys, TranslationKeys.TranslationKey, Services}
+  alias LangtoolPro.{TranslationKeys, TranslationKeys.TranslationKey}
 
   plug :check_auth when action in [:index, :new, :create, :edit, :update, :delete]
   plug :check_confirmation when action in [:index, :new, :create, :edit, :update, :delete]

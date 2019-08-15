@@ -4,7 +4,7 @@ defmodule LangtoolPro.Tasks do
   """
 
   import Ecto.Query, warn: false
-  alias LangtoolPro.{Repo, Tasks.Task}
+  alias LangtoolPro.{Repo, Tasks.Task, Services}
 
   @doc """
   Get tasks list for user
@@ -36,6 +36,28 @@ defmodule LangtoolPro.Tasks do
 
   """
   def get_task(id) when is_integer(id), do: Repo.get(Task, id)
+
+  @doc """
+
+  Gets a service name for task
+
+  ## Examples
+
+      iex> get_service_for_task(123)
+      %Service{}
+
+      iex> get_service_for_task(123)
+      nil
+
+  """
+  def get_service_for_task(id) when is_integer(id) do
+    case get_task(id) do
+      nil -> nil
+      task ->
+        Repo.preload(task, :translation_key).translation_key.service_id
+        |> Services.get_service()
+    end
+  end
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking task changes.
