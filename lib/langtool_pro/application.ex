@@ -14,6 +14,7 @@ defmodule LangtoolPro.Application do
       supervisor(LangtoolProWeb.Endpoint, []),
       # Start your own worker by calling: LangtoolPro.Worker.start_link(arg1, arg2, arg3)
       # worker(LangtoolPro.Worker, [arg1, arg2, arg3]),
+      supervisor(Task.Supervisor, [[name: LangtoolPro.Supervisors.TaskHandle, restart: :temporary]])
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -143,4 +143,33 @@ defmodule LangtoolPro.Tasks do
       |> Enum.at(-1)
     I18nParser.detect(path, extension)
   end
+
+  @doc """
+  Attaches result file to task
+
+  ## Examples
+
+      iex> save_result_file("content", task)
+
+  """
+  def save_result_file(result_file_content, %Task{} = task) when is_binary(result_file_content) do
+    result_file_name = task.to <> ".yml"
+    # create temp folder
+    temp_folder = File.cwd! |> Path.join(LangtoolPro.File.temp_storage_dir(:original, {:abc, task}))
+    File.mkdir(temp_folder)
+    # create temp file
+    temp_file_path = temp_folder <> "/#{result_file_name}"
+    File.write(temp_file_path, result_file_content)
+    # attach temp file as result to task
+    save_result = attach_result_file(task, %{result_file: %Plug.Upload{filename: result_file_name, path: temp_file_path}})
+    # delete temp file
+    File.rm(temp_file_path)
+    save_result
+  end
+
+  defp attach_result_file(%Task{} = task, %{} = attrs) do
+    task
+    |> Task.result_file_changeset(attrs)
+    |> Repo.update()
+  end
 end

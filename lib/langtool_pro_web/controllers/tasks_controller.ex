@@ -1,6 +1,6 @@
 defmodule LangtoolProWeb.TasksController do
   use LangtoolProWeb, :controller
-  alias LangtoolPro.{Tasks, Tasks.Task, TranslationKeys}
+  alias LangtoolPro.{Tasks, Tasks.Task}
 
   plug :check_auth when action in [:index, :new, :create, :delete]
   plug :check_confirmation when action in [:index, :new, :create, :delete]
@@ -26,7 +26,8 @@ defmodule LangtoolProWeb.TasksController do
     |> case do
       {:ok, task} ->
         case Tasks.attach_file(task, task_params) do
-          {:ok, _} ->
+          {:ok, task} ->
+            LangtoolPro.Supervisors.TaskHandle.call(task)
             conn
             |> put_flash(:success, "Task created successfully.")
             |> redirect(to: tasks_path(conn, :index))
