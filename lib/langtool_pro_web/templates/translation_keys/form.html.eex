@@ -6,7 +6,7 @@
     </div>
     <div class="form-group">
       <%= label f, :service, "Service *", class: "control-label" %>
-      <%= select f, :service, ["google", "yandex"], class: "form-control", required: true %>
+      <%= select f, :service, ["systran"], class: "form-control", required: true %>
     </div>
     <div class="form-group">
       <%= label f, :value, "Value *", class: "control-label" %>

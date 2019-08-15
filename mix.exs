@@ -53,7 +53,10 @@ defmodule LangtoolPro.Mixfile do
       {:premailex, "~> 0.3.0"},
       {:joken, "~> 2.0"},
       {:arc_ecto, "~> 0.11.2"},
-      {:i18n_parser, "~> 0.1.8"}
+      # file parse packages
+      {:i18n_parser, "~> 0.1.8"},
+      # translation packages
+      {:systran, "~> 0.1.0"}
     ]
   end
 

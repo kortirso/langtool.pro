@@ -21,6 +21,6 @@ defmodule LangtoolPro.TranslationKeys.TranslationKey do
     |> cast(attrs, [:name, :service, :value, :user_id])
     |> assoc_constraint(:user)
     |> validate_required([:name, :service, :value])
-    |> validate_inclusion(:service, ["google", "yandex"])
+    |> validate_inclusion(:service, ["systran"])
   end
 end
