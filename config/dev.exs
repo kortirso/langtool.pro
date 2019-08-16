@@ -63,3 +63,4 @@ config :langtool_pro, LangtoolPro.Mailer,
 
 config :arc, storage: Arc.Storage.Local
 
+config :langtool_pro, host: "http://localhost:4000"

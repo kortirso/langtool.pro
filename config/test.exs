@@ -20,8 +20,10 @@ config :langtool_pro, LangtoolPro.Repo,
 
 # Configure mailer
 config :langtool_pro, LangtoolPro.Mailer,
-  adapter: Bamboo.LocalAdapter
+  adapter: Bamboo.TestAdapter
 
 config :arc, storage: Arc.Storage.Local
 
 config :joken, default_signer: "secret"
+
+config :langtool_pro, host: "http://localhost:4000"

@@ -1,3 +1,3 @@
 Thank you for joining LangTool
 
-To confirm your email you need visit confirmation page
+To confirm your email you need visit <a href="<%= Application.get_env(:langtool_pro, :host) %>/registration/confirm?email=<%= @user.email %>&confirmation_token=<%= @user.confirmation_token %>">confirmation page</a>

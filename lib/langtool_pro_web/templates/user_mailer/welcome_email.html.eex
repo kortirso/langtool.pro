@@ -3,6 +3,6 @@
     <h1>Thank you for joining LangTool</h2>
   </div>
   <div class="inner">
-    <p>To confirm your email you need visit <a href="/registration/confirm?email=<%= @user.email %>&confirmation_token=<%= @user.confirmation_token %>">confirmation page</a>.</p>
+    <p>To confirm your email you need visit <a href="<%= Application.get_env(:langtool_pro, :host) %>/registration/confirm?email=<%= @user.email %>&confirmation_token=<%= @user.confirmation_token %>">confirmation page</a>.</p>
   </div>
 </div>

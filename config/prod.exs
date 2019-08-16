@@ -59,6 +59,12 @@ config :logger, level: :info
 #     config :langtool_pro, LangtoolProWeb.Endpoint, server: true
 #
 
+# Configure mailer
+config :langtool_pro, LangtoolPro.Mailer,
+  adapter: Bamboo.SendGridAdapter
+
+config :langtool_pro, host: "http://localhost:4000"
+
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
