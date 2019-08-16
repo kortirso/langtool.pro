@@ -2,7 +2,7 @@ defmodule LangtoolPro.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Comeonin.Bcrypt
-  alias LangtoolPro.{TranslationKeys.TranslationKey, Tasks.Task}
+  alias LangtoolPro.{TranslationKeys.TranslationKey, Tasks.Task, Helpers}
 
   schema "users" do
     field :email, :string
@@ -26,19 +26,12 @@ defmodule LangtoolPro.Users.User do
     |> unique_constraint(:email)
     |> update_change(:encrypted_password, &Bcrypt.hashpwsalt/1)
     |> put_change(:confirmed_at, nil)
-    |> put_change(:confirmation_token, random_string(24))
+    |> put_change(:confirmation_token, Helpers.random_string(24))
   end
 
   @doc false
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:confirmed_at])
-  end
-
-  defp random_string(length) do
-    length
-    |> :crypto.strong_rand_bytes()
-    |> Base.url_encode64()
-    |> binary_part(0, length)
   end
 end

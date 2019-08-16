@@ -2,7 +2,7 @@ defmodule LangtoolPro.Tasks.Task do
   use Ecto.Schema
   use Arc.Ecto.Schema
   import Ecto.Changeset
-  alias LangtoolPro.{Users.User, Tasks.Task, TranslationKeys, TranslationKeys.TranslationKey}
+  alias LangtoolPro.{Users.User, Tasks.Task, TranslationKeys, TranslationKeys.TranslationKey, Helpers}
 
   schema "tasks" do
     field :file, LangtoolPro.File.Type
@@ -10,6 +10,7 @@ defmodule LangtoolPro.Tasks.Task do
     field :from, :string
     field :to, :string
     field :status, :string
+    field :uid, :string
 
     belongs_to :user, User
     belongs_to :translation_key, TranslationKey
@@ -27,6 +28,7 @@ defmodule LangtoolPro.Tasks.Task do
     |> validate_inclusion(:status, ["created", "active", "failed", "completed"])
     |> validate_length(:from, min: 2)
     |> validate_length(:to, min: 2)
+    |> put_change(:uid, Helpers.random_string(12))
   end
 
   @doc false

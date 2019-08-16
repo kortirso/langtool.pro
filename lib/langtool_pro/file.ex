@@ -6,17 +6,17 @@ defmodule LangtoolPro.File do
 
   def storage_dir(_version, {_, task}) do
     if Mix.env == :test do
-      "uploads/test/#{task.id}/original"
+      "uploads/test/#{task.id}/#{task.uid}/original"
     else
-      "uploads/#{task.id}/original"
+      "uploads/#{task.id}/#{task.uid}/original"
     end
   end
 
   def temp_storage_dir(_version, {_, task}) do
     if Mix.env == :test do
-      "uploads/test/#{task.id}/temp"
+      "uploads/test/#{task.id}/#{task.uid}/temp"
     else
-      "uploads/#{task.id}/temp"
+      "uploads/#{task.id}/#{task.uid}/temp"
     end
   end
 end
