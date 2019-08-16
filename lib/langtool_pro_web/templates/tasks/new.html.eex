@@ -1,6 +1,15 @@
 <div id="tasks" class="container flex">
   <div class="left">
-    <p>Some descripiton</p>
+    <div id="new_task_description">
+      <p class="header">New task creation process</p>
+      <ul>
+        <li>Select framework to define type of localization file</li>
+        <li>Then you will need to select file<p class="caption">Original language of this file will be automatically detected</p></li>
+        <li>And choose translation key<p class="caption">If you don't have translation keys then you need to add it at <%= link "translation keys page", to: translation_keys_path(@conn, :index), class: "decoration_none" %></p></li>
+        <li>Last, you will need to choose target language of translation<p class="caption">Right now you can translate only between english and other language</p></li>
+        <li>Task will proceed automatically and you will see result of translation at <%= link "tasks page", to: tasks_path(@conn, :index), class: "decoration_none" %></li>
+      </ul>
+    </div>
   </div>
   <div class="right">
     <div class="section">
@@ -34,13 +43,16 @@
             <label for="original_language">Original language</label>
             <input type="text" id="original_language" :value="originalLanguage" />
           </div>
-          <div class="form-group" :class="{ disabled: file === null || fileError, current: fileName !== null && to === '' && !fileError }">
+          <div class="form-group" :class="{ disabled: translationKey === null, current: translationKey !== null && to === '' }">
             <label for="translation_language">Language of translation</label>
             <select class="form-control" id="translation_language" v-model="to">
               <option disabled="" selected="" value="">Select your option</option>
+              <option value="da" :disabled="from === 'da' || from !== 'en'">Danish</option>
+              <option value="de" :disabled="from === 'de' || from !== 'en'">Deutsch</option>
               <option value="en" :disabled="from === 'en'">English</option>
-              <option value="da" :disabled="from === 'da'">Danish</option>
-              <option value="ru" :disabled="from === 'ru'">Russian</option>
+              <option value="fr" :disabled="from === 'fr' || from !== 'en'">French</option>
+              <option value="ru" :disabled="from === 'ru' || from !== 'en'">Russian</option>
+              <option value="es" :disabled="from === 'es' || from !== 'en'">Spanish</option>
             </select>
           </div>
         </div>

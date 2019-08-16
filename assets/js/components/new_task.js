@@ -1,7 +1,7 @@
 import VueResource from 'vue-resource'
 
 const extensions = {'ruby_on_rails': '.yml'}
-const locales = {'en': 'English', 'ru': 'Russian', 'da': 'Danish'}
+const locales = {'da': 'Danish', 'de': 'Deutsch', 'en': 'English', 'fr': 'French', 'ru': 'Russian', 'es': 'Spanish'}
 
 Vue.use(VueResource)
 
@@ -33,7 +33,6 @@ if ($('#new_task').length) {
         this.file = null
         this.fileName = null
         this.setError(null)
-        // reset previously selected file
         $('#localization_file').val('') 
       },
       file: function() {

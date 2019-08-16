@@ -21,8 +21,10 @@
         <p>Our automatic system will translate your file right after uploading</p>
         <h4>No restrictions on the amount of the translation</h4>
         <p>There are no limits for size of translated files</p>
-        <h4>Free API</h4>
-        <p>Create any integration with LangTool through API</p>
+        <h4>Supported frameworks</h4>
+        <p>You can translate localization files for Ruby on Rails</p>
+        <h4>Supported translation services</h4>
+        <p>Your translations can be proceed with <%= link "Systran service", to: "https://platform.systran.net/index", class: "decoration_none" %></p>
       </div>
     </div>
     <div class="block">
@@ -30,8 +32,8 @@
         <h3>Work process</h3>
       </div>
       <div class="inner">
-        <h4>Create an account</h4>
-        <p>First, you need create account with keys for any translation services</p>
+        <h4>Create an account </h4>
+        <p>First, you need create account with keys for any of available translation services</p>
         <h4>Create a task</h4>
         <p>Select the framework you want, upload the file, choose the translation direction</p>
         <h4>Automatic translation</h4>

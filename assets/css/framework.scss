@@ -90,6 +90,11 @@
     font-size: 0.8rem;
   }
 
+  &.btn-mini {
+    padding: 0.2rem 0.25rem;
+    font-size: 0.6rem;
+  }
+
   &:hover {
     cursor: pointer;
   }
@@ -142,3 +147,52 @@ a {
     }
   }
 }
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+
+  td, th {
+    padding: .5rem;
+    vertical-align: top;
+  }
+
+  th {
+    font-weight: 400;
+    text-align: inherit;
+  }
+
+  thead {
+    tr {
+      vertical-align: bottom;
+      border-bottom: 2px solid #dee2e6;
+
+      th {
+        border-top: 1px solid #dee2e6;
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      th, td {
+        border-bottom: 1px solid #dee2e6;
+      }
+    }
+  }
+
+  &.table-hover {
+    tbody {
+      tr {
+        &:hover {
+          cursor: pointer;
+          background: #f8f9fa;
+        }
+      }
+    }
+  }
+}
+
