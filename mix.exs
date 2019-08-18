@@ -25,7 +25,7 @@ defmodule LangtoolPro.Mixfile do
   def application do
     [
       mod: {LangtoolPro.Application, []},
-      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp]
+      extra_applications: [:logger, :runtime_tools, :bamboo, :bamboo_smtp, :galnora]
     ]
   end
 
@@ -47,17 +47,20 @@ defmodule LangtoolPro.Mixfile do
       {:poison, "~> 3.1"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 1.0"},
+      # testing factories
       {:ex_machina, "~> 2.2", only: :test},
+      # mailing
       {:bamboo, "~> 1.3.0"},
       {:bamboo_smtp, "~> 1.7.0"},
       {:premailex, "~> 0.3.0"},
       {:joken, "~> 2.0"},
-      {:arc_ecto, "~> 0.11.2"},
       {:jason, "~> 1.0"},
+      # saving files
+      {:arc_ecto, "~> 0.11.2"},
       # file parse packages
       {:i18n_parser, "~> 0.1.8"},
-      # translation packages
-      {:systran, "~> 0.1.0"}
+      # translation genserver
+      {:galnora, "~> 0.1.3"}
     ]
   end
 

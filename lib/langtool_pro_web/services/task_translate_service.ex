@@ -31,24 +31,23 @@ defmodule LangtoolProWeb.Services.TaskTranslateService do
   # translation with SYSTRAN service
   defp translate(:systran, sentences, task) do
     key = TranslationKeys.get_translation_key(task.translation_key_id).value
-    Enum.map(sentences, fn {index, original} ->
-      {index, original, do_systran_translate(key, original, task.from, task.to, 0)}
-    end)
+    Galnora.Server.add_job(sentences, %{uid: task.id, type: :systran, from: task.from, to: task.to, keys: %{key: key}})
+
+    wait_job_completeness(task.id)
+    sentences = Galnora.Server.get_job_with_sentences(task.id)
+    Galnora.Server.delete_job(task.id)
+
+    sentences
   end
 
-  defp do_systran_translate(_, input, _, _, 3), do: "#{input}---"
-
-  defp do_systran_translate(key, input, source, target, index) do
-    case Systran.Translate.translate(%{key: key, input: input, source: source, target: target}) do
-      {:error, :timeout} ->
-        Process.sleep(500)
-        do_systran_translate(key, input, source, target, index + 1)
-      {:error, _} ->
-        "#{input}---"
-      {:ok, result} ->
-        result["outputs"]
-        |> Enum.at(0)
-        |> Map.get("output")
+  defp wait_job_completeness(job_uid) do
+    job = Galnora.Server.get_job(job_uid)
+    case job.status do
+      :active ->
+        Process.sleep(2000)
+        wait_job_completeness(job_uid)
+      _ ->
+        :ok
     end
   end
 end
