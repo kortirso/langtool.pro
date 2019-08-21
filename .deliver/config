@@ -25,40 +25,40 @@ pre_erlang_get_and_update_deps() {
 }
 
 pre_erlang_clean_compile() {
- status "Installing nodejs dependencies"
- __sync_remote "
-   [ -f ~/.profile ] && source ~/.profile
-   set -e
-   cd '$BUILD_AT'
+  status "Installing nodejs dependencies"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT/assets'
 
-   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' npm install
- "
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' npm install
+  "
 
- status "Building brunch assets"
- __sync_remote "
-   [ -f ~/.profile ] && source ~/.profile
-   set -e
-   cd '$BUILD_AT'
+  status "Building brunch assets"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e
+    cd '$BUILD_AT'
 
-   mkdir -p priv/static
-   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' npm run deploy
- "
+    mkdir -p priv/static
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' npm run deploy
+  "
 
- status "Compiling code"
- __sync_remote "
-   [ -f ~/.profile ] && source ~/.profile
-   set -e #
-   cd '$BUILD_AT'
+  status "Compiling code"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e #
+    cd '$BUILD_AT'
 
-   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD do deps.get, compile
- "
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD do deps.get, compile
+  "
 
- status "Running phoenix.digest"
- __sync_remote "
-   [ -f ~/.profile ] && source ~/.profile
-   set -e #
-   cd '$BUILD_AT'
+  status "Running phoenix.digest"
+  __sync_remote "
+    [ -f ~/.profile ] && source ~/.profile
+    set -e #
+    cd '$BUILD_AT'
 
-   APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest $SILENCE
- "
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest $SILENCE
+  "
 }
