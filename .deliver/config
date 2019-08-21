@@ -1,0 +1,38 @@
+APP="langtool_pro"
+
+BUILD_HOST="206.81.30.158"
+BUILD_USER="deploy"
+BUILD_AT="/tmp/edeliver/$APP/builds"
+
+RELEASE_DIR="$BUILD_AT/_build/prod/rel/$APP"
+
+# prevent re-installing node modules; this defaults to "."
+GIT_CLEAN_PATHS="_build rel priv/static"
+
+PRODUCTION_HOSTS="206.81.30.158" 
+PRODUCTION_USER="deploy"
+
+DELIVER_TO="/var/www/html/$APP/current"
+
+# For *Phoenix* projects, symlink prod.secret.exs to our tmp source
+pre_erlang_get_and_update_deps() {
+  local _prod_secret_path="/home/deploy/phoenix_apps_config/$APP/prod.secret.exs"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+    "
+  fi
+}
+
+pre_erlang_clean_compile() {
+  status "Running phoenix.digest"
+  __sync_remote "
+    # echo \$PATH # check if rbenv is in the path
+    set -e # fail if any command fails (recommended)
+    cd '$BUILD_AT'
+    mkdir -p priv/static
+    npm install 
+
+    ./node_modules/brunch/bin/brunch build --production 
+  "
+}

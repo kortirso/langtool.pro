@@ -60,7 +60,10 @@ defmodule LangtoolPro.Mixfile do
       # file parse packages
       {:i18n_parser, "~> 0.1.8"},
       # translation genserver
-      {:galnora, "~> 0.1.3"}
+      {:galnora, "~> 0.1.3"},
+      # deploying
+      {:distillery, "~> 2.1"},
+      {:edeliver, ">= 1.7.0"}
     ]
   end
 
