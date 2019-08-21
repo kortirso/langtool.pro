@@ -67,7 +67,7 @@ config :phoenix, :serve_endpoints, true
 config :langtool_pro, LangtoolPro.Mailer,
   adapter: Bamboo.SendGridAdapter
 
-config :langtool_pro, host: "http://localhost:4000"
+config :langtool_pro, host: "http://206.81.30.158:4000"
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.

@@ -42,7 +42,7 @@ pre_erlang_clean_compile() {
     cd '$BUILD_AT'
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD do deps.get, compile
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD ecto.migrate
-    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD galnora.setup
+    # APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD galnora.setup
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
   "
 }
