@@ -38,9 +38,8 @@ pre_erlang_clean_compile() {
   __sync_remote "
     [ -f ~/.profile ] && source ~/.profile
     set -e
-    cd '$BUILD_AT'
-
-    mkdir -p priv/static
+    cd '$BUILD_AT/assets'
+    
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' npm run deploy
   "
 
@@ -58,6 +57,7 @@ pre_erlang_clean_compile() {
     [ -f ~/.profile ] && source ~/.profile
     set -e #
     cd '$BUILD_AT'
+    mkdir -p priv/static
 
     APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest $SILENCE
   "
