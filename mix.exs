@@ -8,7 +8,7 @@ defmodule LangtoolPro.Mixfile do
   def project do
     [
       app: :langtool_pro,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.4",
       name: "Langtool.pro",
       description: @description,
@@ -60,7 +60,7 @@ defmodule LangtoolPro.Mixfile do
       # file parse packages
       {:i18n_parser, "~> 0.1.8"},
       # translation genserver
-      {:galnora, "~> 0.1.3"},
+      {:galnora, "~> 0.1.4"},
       # deploying
       {:distillery, "~> 2.1"},
       {:edeliver, ">= 1.7.0"}
