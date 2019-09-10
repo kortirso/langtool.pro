@@ -8,7 +8,7 @@ defmodule LangtoolPro.Mixfile do
   def project do
     [
       app: :langtool_pro,
-      version: "0.1.2",
+      version: "0.1.3",
       elixir: "~> 1.4",
       name: "Langtool.pro",
       description: @description,

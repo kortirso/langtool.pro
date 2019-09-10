@@ -22,7 +22,7 @@
         <h4>No restrictions on the amount of the translation</h4>
         <p>There are no limits for size of translated files</p>
         <h4>Supported frameworks</h4>
-        <p>You can translate localization files for Ruby on Rails</p>
+        <p>You can translate localization files for Ruby on Rails, React JS or Laravel</p>
         <h4>Supported translation services</h4>
         <p>Your translations can be proceed with <%= link "Systran service", to: "https://platform.systran.net/index", class: "decoration_none" %></p>
       </div>
