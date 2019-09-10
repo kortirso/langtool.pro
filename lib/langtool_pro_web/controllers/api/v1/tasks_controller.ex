@@ -2,8 +2,8 @@ defmodule LangtoolProWeb.Api.V1.TasksController do
   use LangtoolProWeb, :controller_api
   alias LangtoolPro.{Tasks}
 
-  def detection(conn, %{"file" => %Plug.Upload{filename: filename, path: path}}) do
-    case Tasks.detect_locale(filename, path) do
+  def detection(conn, %{"file" => %Plug.Upload{filename: filename, path: path}, "framework" => framework}) do
+    case Tasks.detect_locale(filename, path, framework) do
       {:ok, message} ->
         conn
         |> put_status(200)

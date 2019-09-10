@@ -14,17 +14,22 @@ defmodule LangtoolProWeb.Services.TaskHandleService do
       iex> LangtoolProWeb.Services.TaskHandleService.call(task)
 
   """
-  def call(%Task{} = task) do
+  def call(%Task{} = task, framework) when is_binary(framework) do
     url = LangtoolPro.File.url({task.file, task}, signed: true)
+    extension = url |> String.split("/") |> Enum.at(-1) |> String.split(".") |> Enum.at(-1)
     file = File.cwd! |> Path.join(url)
     case File.read(file) do
-      {:ok, _} -> convert_file(task, file, "yml")
+      {:ok, _} -> convert_file(task, file, extension, framework)
       _ -> task_update_status(task, "failed")
     end
   end
 
-  defp convert_file(task, file, _) do
-    case I18nParser.convert(file, "yml") do
+  defp convert_file(task, file, _, "react_js"), do: file |> I18nParser.convert("json", %{data_with_locale: true}) |> check_converted_data(task)
+  defp convert_file(task, file, _, "laravel"), do: file |> I18nParser.convert("json", %{data_with_locale: false}) |> check_converted_data(task)
+  defp convert_file(task, file, extension, _), do: file |> I18nParser.convert(extension) |> check_converted_data(task)
+
+  defp check_converted_data(value, task) do
+    case value do
       {:ok, converted_data, sentences} -> activate_task(task, converted_data, sentences)
       _ -> task_update_status(task, "failed")
     end

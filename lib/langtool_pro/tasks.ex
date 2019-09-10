@@ -158,13 +158,17 @@ defmodule LangtoolPro.Tasks do
       {:error, ""}
 
   """
-  def detect_locale(filename, path) when is_binary(filename) and is_binary(path) do
+  def detect_locale(filename, path, framework) when is_binary(filename) and is_binary(path) and is_binary(framework) do
     extension =
       filename
       |> String.split(".")
       |> Enum.at(-1)
-    I18nParser.detect(path, extension)
+    do_detect_locale(path, extension, framework, filename)
   end
+
+  defp do_detect_locale(_, "json", "laravel", filename), do: I18nParser.detect("", "json", %{data_with_locale: false, filename: filename})
+  defp do_detect_locale(path, "json", "react_js", _), do: I18nParser.detect(path, "json", %{data_with_locale: true})
+  defp do_detect_locale(path, extension, _, _), do: I18nParser.detect(path, extension)
 
   @doc """
   Attaches result file to task

@@ -110,11 +110,11 @@ defmodule LangtoolPro.TasksTest do
 
   describe ".detect_locale" do
     test "detects locale for valid file" do
-      assert {:ok, %{code: "ru"}} = Tasks.detect_locale("ru.yml", @task_file_params.file.path)
+      assert {:ok, %{code: "ru"}} = Tasks.detect_locale("ru.yml", @task_file_params.file.path, "ruby_on_rails")
     end
 
     test "does not detect locale for invalid file" do
-      assert {:error, _} = Tasks.detect_locale("ru.yml", @task_invalid_file_params.file.path)
+      assert {:error, _} = Tasks.detect_locale("ru.yml", @task_invalid_file_params.file.path, "ruby_on_rails")
     end
   end
 

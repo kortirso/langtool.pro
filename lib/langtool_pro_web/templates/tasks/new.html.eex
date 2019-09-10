@@ -23,6 +23,8 @@
           <select class="form-control" id="select_framework" v-model="framework">
             <option disabled="" selected="" value="">Select your option</option>
             <option value="ruby_on_rails">Ruby on Rails</option>
+            <option value="react_js">React JS</option>
+            <option value="laravel">Laravel</option>
           </select>
         </div>
         <div class="form-group" :class="{ disabled: framework === '', current: framework !== '' && fileName === null || fileError }">

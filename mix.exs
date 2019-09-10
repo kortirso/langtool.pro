@@ -58,7 +58,7 @@ defmodule LangtoolPro.Mixfile do
       # saving files
       {:arc_ecto, "~> 0.11.2"},
       # file parse packages
-      {:i18n_parser, "~> 0.1.8"},
+      {:i18n_parser, "~> 0.1.10"},
       # translation genserver
       {:galnora, "~> 0.1.4"},
       # deploying

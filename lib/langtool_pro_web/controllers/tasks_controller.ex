@@ -19,7 +19,7 @@ defmodule LangtoolProWeb.TasksController do
     |> render("new.html")
   end
 
-  def create(conn, %{"task" => task_params}) do
+  def create(conn, %{"task" => task_params, "framework" => framework}) do
     task_params
     |> Map.merge(%{"user_id" => conn.assigns.current_user.id})
     |> Tasks.create_task()
@@ -27,7 +27,7 @@ defmodule LangtoolProWeb.TasksController do
       {:ok, task} ->
         case Tasks.attach_file(task, task_params) do
           {:ok, task} ->
-            LangtoolPro.Supervisors.TaskHandle.call(task)
+            LangtoolPro.Supervisors.TaskHandle.call(task, framework)
             conn
             |> put_flash(:success, "Task created successfully.")
             |> redirect(to: tasks_path(conn, :index))

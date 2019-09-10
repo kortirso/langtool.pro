@@ -71,7 +71,7 @@ defmodule LangtoolProWeb.TasksControllerTest do
 
   describe "POST#create" do
     test "redirects to welcome page for guest", %{conn: conn} do
-      conn = post conn, tasks_path(conn, :create), task: %{}
+      conn = post conn, tasks_path(conn, :create), task: %{}, framework: "ruby_on_rails"
 
       assert redirected_to(conn) == welcome_path(conn, :index)
       assert get_flash(conn, :danger) == "You need to be signed in to access that page."
@@ -79,7 +79,7 @@ defmodule LangtoolProWeb.TasksControllerTest do
 
     test "redirects to welcome page for unconfirmed user", %{user: user} do
       conn = session_conn() |> put_session(:current_user_id, user.id)
-      conn = conn |> post(tasks_path(conn, :create), task: %{})
+      conn = conn |> post(tasks_path(conn, :create), task: %{}, framework: "ruby_on_rails")
 
       assert redirected_to(conn) == welcome_path(conn, :index)
       assert get_flash(conn, :danger) == "You need to confirm your email."
@@ -89,7 +89,7 @@ defmodule LangtoolProWeb.TasksControllerTest do
       tasks_amount_before = length(Tasks.get_tasks_for_user(confirmed_user.id))
 
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
-      conn = conn |> post(tasks_path(conn, :create), task: @invalid_task_params)
+      conn = conn |> post(tasks_path(conn, :create), task: @invalid_task_params, framework: "ruby_on_rails")
 
       assert html_response(conn, 200) =~ "New task"
       assert get_flash(conn, :danger) != nil
@@ -100,7 +100,7 @@ defmodule LangtoolProWeb.TasksControllerTest do
       tasks_amount_before = length(Tasks.get_tasks_for_user(confirmed_user.id))
 
       conn = session_conn() |> put_session(:current_user_id, confirmed_user.id)
-      conn = conn |> post(tasks_path(conn, :create), task: @task_params |> Map.merge(%{translation_key_id: translation_key.id}))
+      conn = conn |> post(tasks_path(conn, :create), task: @task_params |> Map.merge(%{translation_key_id: translation_key.id}), framework: "ruby_on_rails")
 
       assert redirected_to(conn) == tasks_path(conn, :index)
       assert get_flash(conn, :success) == "Task created successfully."

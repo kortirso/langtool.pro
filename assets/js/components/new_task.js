@@ -1,6 +1,6 @@
 import VueResource from 'vue-resource'
 
-const extensions = {'ruby_on_rails': '.yml'}
+const extensions = {'ruby_on_rails': '.yml', 'react_js': '.json', 'laravel': '.json'}
 const locales = {'da': 'Danish', 'de': 'Deutsch', 'en': 'English', 'fr': 'French', 'ru': 'Russian', 'es': 'Spanish'}
 
 Vue.use(VueResource)
@@ -32,8 +32,9 @@ if ($('#new_task').length) {
       framework: function() {
         this.file = null
         this.fileName = null
+        this.translationKey = null
         this.setError(null)
-        $('#localization_file').val('') 
+        $('#localization_file').val('')
       },
       file: function() {
         this.to = ''
@@ -47,6 +48,7 @@ if ($('#new_task').length) {
         // send file for locale autodetection
         let data = new FormData()
         data.append('file', this.file)
+        data.append('framework', this.framework)
         const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/api/v1/tasks/detection', data, config).then(function(data) {
           if (data.body.code !== undefined) {
@@ -70,6 +72,7 @@ if ($('#new_task').length) {
         data.append('task[to]', this.to)
         data.append('task[status]', 'created')
         data.append('_csrf_token', $('#_csrf_token').val())
+        data.append('framework', this.framework)
         const config = { headers : { 'Content-Type' : 'multipart/form-data' } }
         this.$http.post('http://localhost:4000/tasks', data, config).then(function(data) {
           window.location.href = 'http://localhost:4000/tasks'
